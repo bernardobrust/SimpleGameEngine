@@ -2,16 +2,16 @@
 **GOAL:** have a working data-oriented pipeline
 
 ### General
-- [ ] Update this TODO list with a more concrete plan (recursive?)
+- [x] Update this TODO list with a more concrete plan (recursive?)
 - [x] Improve readme
 - [x] Setup a git repo
-- [ ] Send to github
+- [x] Send to github
 
-### Build system
+### Build System
 - [x] Just support compiling a core for now with a module system
 
 ### Core Engine
-Create basic data components:
+Create basic data components: (SoA)
 - [x] Positions (floats)
 - [x] Sprites (just ints for now for testing)
 - [x] Entity types (enum with, player, enemy, etc...)
@@ -31,3 +31,7 @@ Access and update:
 
 ### Data Structures
 Use STL for now, it's reasonably efficient for these simple things, but latter we'll likely require some more specialized containers.
+
+### Problems for next version
+- Somehow ensure all vector in EntityRegistry have the same size after adding/deleting elements
+- Benchmarking `std::vector` vs my own dynamic arrays (I can probably pull some tricks to make it faster).

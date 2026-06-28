@@ -1,4 +1,6 @@
 import <cstdio>;
+
+// Temporary
 import <vector>;
 
 // We could also have speeds, but this is just for testing
@@ -25,7 +27,7 @@ struct EntityRegistry {
 };
 
 void update_positions(std::vector<Position>& positions, std::vector<EntityType>& types) {
-    for (unsigned i{0}; i < positions.size(); ++i) {
+    for (size_t i{0}; i < positions.size(); ++i) {
         EntityType type = types[i];
         Position* pos = &positions[i];
         switch (type) {
