@@ -27,7 +27,7 @@ Create a pipeline to render and update entities:
 
 Access and update:
 - [ ] Access to specific entity by id
-- [ ] Altering data of a specific entity by it's id
+- [x] Altering data of a specific entity by it's id
 
 ### Data Structures
 Use STL for now, it's reasonably efficient for these simple things, but latter we'll likely require some more specialized containers.

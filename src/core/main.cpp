@@ -45,16 +45,24 @@ void render_sprites(const std::vector<Position>& positions, const std::vector<Sp
     }
 }
 
+void update_entity_position(std::vector<Position>& positions, unsigned entity_id, Position new_pos) {
+    // We could have some validation logic here for example
+    positions[entity_id] = new_pos;
+}
+
 int main() {
     EntityRegistry registry;
     registry.positions = {{0.0f, 0.0f}, {4.0f, 5.0f}, {3.5f, 2.0f}};
     registry.sprites = {{1}, {2}, {3}};
     registry.types = {PLAYER, ENEMY_MELLE, ENEMY_RANGED};
 
+    update_entity_position(registry.positions, 0, {10.0f, 12.0f});
+
     unsigned count = 3;
     while (count--) {
         update_positions(registry.positions, registry.types);
         render_sprites(registry.positions, registry.sprites);
+
         printf("\n");
     }
 }
