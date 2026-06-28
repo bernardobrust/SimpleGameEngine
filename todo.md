@@ -1,9 +1,11 @@
 # Todo list for version 0.0.1 pre-alpha
+**GOAL:** have a working data-oriented pipeline
 
 ### General
 - [ ] Update this TODO list with a more concrete plan (recursive?)
-- [ ] Improve readme
+- [x] Improve readme
 - [x] Setup a git repo
+- [ ] Send to github
 
 ### Build system
 - [ ] Just support compiling a core for now with a module system
@@ -22,3 +24,6 @@ Render functions:
 
 Create a pipeline to render and update entities:
 - [ ] Call updates and renders on all entities
+
+### Data Structures
+Use STL for now, it's reasonably efficient for these simple things, but latter we'll likely require some more specialized containers.

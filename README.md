@@ -4,6 +4,7 @@ A repository I decided to make just for fun to keep software engineering sharp w
 - Post-Modern C, a.k.a C++ but we only use modules, namespaces, default function values and templates when justifiable.
 - Building a platform layer from scratch;
 - CPU rendering;
+- Data oriented design;
 - Creating a simple puzzle game.
 
 ## References
