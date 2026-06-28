@@ -1,4 +1,35 @@
-# Todo list for version 0.0.1 pre-alpha
+## Todo list for version 0.0.1 alpha
+**GOAL:** A working dynamic array data structure
+
+### General
+- [x] Update docs pre-work
+- [ ] Modularized support for data structures
+- [ ] Update docs post-work
+
+### Core Engine
+- [ ] Change `EntityRegistry` to use `engine::ds::dyn_arr`
+- [ ] Create assertions on functions that update the size of `EntityRegistry` to check they are matching. This is where C++26 contracts would really help instead of putting `assert` at the beggining and at the end of the function.
+
+### Data Structures
+- [ ] Create a `engine::ds::dyn_arr` module, should be templated (justified)
+
+Funtions:
+- [ ] init given a size, **DO NOT ZERO MEMORY ON ALLOCATION**, we assume the caller will assign latter. Because of this, we only support trivial datatypes, since this is a Data Oriented project this is fine. Moreover, we can document this with `static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable");` to check at compile time this assumption is correct. Metadata is stored by the struct.
+- [ ] push with an implicit re-sacale parameter (2). **O(1) amortized**
+- [ ] pop with an implicit de-scale parameter (false) that reduces the size of the vector after deleting if it falls bellow a threshold (2). **O(1) amortized**
+- [ ] insert, push but can specify a specific position. **O(n)**
+- [ ] delete, pop but can specify a specific position. **O(n)**
+- [ ] length, the amount of used slots
+- [ ] size, the total memory used by the data structure, with implicit header parameter (false) that adds the shadowed metadata to the size
+
+### Problems for next versions
+- Of course, check that the data structure works correctly and efficienlty in the long run
+
+***
+
+# Previous version
+
+## Todo list for version 0.0.1 pre-alpha
 **GOAL:** have a working data-oriented pipeline
 
 ### General
@@ -32,6 +63,6 @@ Access and update:
 ### Data Structures
 Use STL for now, it's reasonably efficient for these simple things, but latter we'll likely require some more specialized containers.
 
-### Problems for next version
+### Problems for next versions
 - Somehow ensure all vector in EntityRegistry have the same size after adding/deleting elements
 - Benchmarking `std::vector` vs my own dynamic arrays (I can probably pull some tricks to make it faster).
