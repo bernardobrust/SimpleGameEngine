@@ -26,7 +26,7 @@ Create a pipeline to render and update entities:
 - [x] Call updates and renders on all entities
 
 Access and update:
-- [ ] Access to specific entity by id
+- [x] Access to specific entity by id
 - [x] Altering data of a specific entity by it's id
 
 ### Data Structures

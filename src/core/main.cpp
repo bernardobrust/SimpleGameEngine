@@ -3,12 +3,18 @@ import <vector>;
 
 // We could also have speeds, but this is just for testing
 struct Position { float x, y; };
-struct Sprite { unsigned textureId; };
+struct Sprite { unsigned texture_id; };
 
 enum EntityType {
     PLAYER,
     ENEMY_MELLE,
     ENEMY_RANGED,
+};
+
+struct EntityData {
+    Position position;
+    Sprite sprite;
+    EntityType type;
 };
 
 // Paralel vectors
@@ -41,13 +47,21 @@ void update_positions(std::vector<Position>& positions, std::vector<EntityType>&
 
 void render_sprites(const std::vector<Position>& positions, const std::vector<Sprite>& sprites) {
     for (size_t i{0}; i < positions.size(); ++i) {
-        printf("Rendering sprite %d at (%f, %f)\n", sprites[i].textureId, positions[i].x, positions[i].y);
+        printf("Rendering sprite %d at (%f, %f)\n", sprites[i].texture_id, positions[i].x, positions[i].y);
     }
 }
 
 void update_entity_position(std::vector<Position>& positions, unsigned entity_id, Position new_pos) {
     // We could have some validation logic here for example
     positions[entity_id] = new_pos;
+}
+
+[[nodiscard]] EntityData get_entity(const EntityRegistry& entities, unsigned id) {
+    EntityData e;
+    e.position = entities.positions[id];
+    e.sprite = entities.sprites[id];
+    e.type = entities.types[id];
+    return e;
 }
 
 int main() {
@@ -65,4 +79,7 @@ int main() {
 
         printf("\n");
     }
+
+    EntityData e = get_entity(registry, 1);
+    printf("Pos = (%f, %f), Sprite id = %d, Type id = %d", e.position.x, e.position.y, e.sprite.texture_id, e.type);
 }
