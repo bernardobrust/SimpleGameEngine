@@ -67,7 +67,7 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # System headers to pre-compile as modules
-SYS_HEADERS := cstdint cstdio cassert cstdlib cstring
+SYS_HEADERS := cstdint cstdio cassert cstdlib cstring vector
 
 .PHONY: clean test setup
 

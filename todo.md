@@ -8,22 +8,22 @@
 - [ ] Send to github
 
 ### Build system
-- [ ] Just support compiling a core for now with a module system
+- [x] Just support compiling a core for now with a module system
 
 ### Core Engine
 Create basic data components:
-- [ ] Positions (floats)
-- [ ] Sprites (just it's for now for testing)
-- [ ] Entity types (enum with, player, enemy, etc...)
+- [x] Positions (floats)
+- [x] Sprites (just ints for now for testing)
+- [x] Entity types (enum with, player, enemy, etc...)
 
 Update functions:
-- [ ] Update positions
+- [x] Update positions
 
 Render functions:
-- [ ] For now just print something like "Rendered enemy X with sprite Y"
+- [x] For now just print something like "Rendered enemy X with sprite Y"
 
 Create a pipeline to render and update entities:
-- [ ] Call updates and renders on all entities
+- [x] Call updates and renders on all entities
 
 ### Data Structures
 Use STL for now, it's reasonably efficient for these simple things, but latter we'll likely require some more specialized containers.
