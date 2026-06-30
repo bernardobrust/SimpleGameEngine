@@ -8,7 +8,7 @@
 - [ ] Update docs post-work
 
 ### Core Engine
-- [ ] Change `EntityRegistry` to use `engine::ds::dyn_arr`
+- [x] Change `EntityRegistry` to use `engine::ds::dyn_arr`
 - [ ] Create assertions on functions that update the size of `EntityRegistry` to check they are matching. This is where C++26 contracts would really help instead of putting `assert` at the beggining and at the end of the function.
 
 ### Data Structures
