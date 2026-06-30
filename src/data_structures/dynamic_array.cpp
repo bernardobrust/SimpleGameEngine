@@ -10,7 +10,7 @@ export namespace engine::ds::dyn_arr
 /*
     Templated dynamic array data structure:
     - Supports trivial data types
-    - Up to 2^32 elements
+    - Max elements: 2^{64-1} (18,446,744,073,709,551,615)
     - 8 bytes of overhead (2 unsigneds of metadata)
 */
 template <typename T> struct DynArr

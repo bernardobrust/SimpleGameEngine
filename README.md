@@ -29,6 +29,8 @@ make -j$(nproc) MODE=release TARGET=core
 
 More build options will be added latter as the project grows in complexity.
 
+A sample config for [Focus Editor](https://github.com/focus-editor/focus) is provided along with the project, only requiering you to copy it to where your focus projects are and setup the absolute path to the root (compiles with F1 and runs with F2).
+
 ## References
 Check [sources](sources.md).
 

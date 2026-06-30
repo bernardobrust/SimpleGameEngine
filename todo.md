@@ -12,7 +12,7 @@
 - [ ] Create assertions on functions that update the size of `EntityRegistry` to check they are matching. This is where C++26 contracts would really help instead of putting `assert` at the beggining and at the end of the function.
 
 ### Data Structures
-- [ ] Create a `engine::ds::dyn_arr` module, should be templated (justified)
+- [x] Create a `engine::ds::dyn_arr` module, should be templated (justified)
 
 Funtions:
 - [x] init given a size, **DO NOT ZERO MEMORY ON ALLOCATION**, we assume the caller will assign latter. Because of this, we only support trivial datatypes, since this is a Data Oriented project this is fine. Moreover, we can document this with `static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable");` to check at compile time this assumption is correct. Metadata is stored by the struct.
