@@ -112,9 +112,33 @@ main ()
 
   update_entity_position (registry.positions, 0, { 10.0f, 12.0f });
 
+  // Test insert and remove, if it's right this whole block does nothing
+  // ----------------------------------------------
   insert (registry.positions, { 5.0f, 5.0f }, 1);
-  insert (registry.sprites, { 2 }, 1);
+  insert (registry.sprites, { 4 }, 1);
   insert (registry.types, ENEMY_RANGED, 1);
+
+  insert (registry.positions, { 5.0f, 5.0f }, 1);
+  insert (registry.sprites, { 4 }, 1);
+  insert (registry.types, ENEMY_RANGED, 1);
+
+  insert (registry.positions, { 5.0f, 5.0f }, 1);
+  insert (registry.sprites, { 4 }, 1);
+  insert (registry.types, ENEMY_RANGED, 1);
+
+  remove (registry.positions, 1);
+  remove (registry.sprites, 1);
+  remove (registry.types, 1);
+
+  remove (registry.positions, 1);
+  remove (registry.sprites, 1);
+  remove (registry.types, 1);
+
+  // Descalate so metadata shows Avaliable = 4
+  remove (registry.positions, 1, true);
+  remove (registry.sprites, 1, true);
+  remove (registry.types, 1, true);
+  // ----------------------------------------------
 
   unsigned count = 3;
   while (count--)
@@ -125,9 +149,8 @@ main ()
       std::cout << "\n";
     }
 
-  EntityData e = get_entity (&registry, 1);
-  printf ("Pos = (%f, %f), Sprite id = %d, Type id = %d", e.position.x,
-          e.position.y, e.sprite.texture_id, e.type);
+  print_data (registry.types);
+  print_metadata (registry.types);
 
   /*
     // Testing init

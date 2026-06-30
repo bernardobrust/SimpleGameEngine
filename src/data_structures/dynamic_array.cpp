@@ -142,7 +142,6 @@ insert (DynArr<T> *dyn_arr, T new_elem, size_t pos, float scale = 2.0f)
       memcpy (&dyn_arr->data[pos + 1], &dyn_arr->data[pos],
               (end - start) * sizeof (T));
       dyn_arr->data[pos] = new_elem;
-
       ++dyn_arr->used;
     }
   else
@@ -181,6 +180,40 @@ pop (DynArr<T> *dyn_arr, bool descale = false, float scale = 2.0f)
     }
   else
     {
+      --dyn_arr->used;
+    }
+}
+
+template <typename T>
+void
+remove (DynArr<T> *dyn_arr, size_t pos, bool descale = false,
+        float scale = 2.0f)
+{
+  assert (dyn_arr != NULL);
+  assert (dyn_arr->sza != 0);
+  assert (scale >= 1.0f);
+
+  // Data we will need to copy
+  size_t start = pos, end = dyn_arr->used;
+
+  // Realocate
+  if (descale and dyn_arr->sza / dyn_arr->used >= scale)
+    {
+      dyn_arr->sza = (size_t)(dyn_arr->sza / scale);
+      dyn_arr->data = (T *)realloc (dyn_arr->data, sizeof (T) * dyn_arr->sza);
+
+      // We copy the data in this range to pos, from 1 to the right
+      memcpy (&dyn_arr->data[pos], &dyn_arr->data[pos + 1],
+              (end - start) * sizeof (T));
+      --dyn_arr->used;
+    }
+  else
+    {
+      // We copy the data in this range to 1 right, then put the new element at
+      // "start"
+      // We copy the data in this range to pos, from 1 to the right
+      memcpy (&dyn_arr->data[pos], &dyn_arr->data[pos + 1],
+              (end - start) * sizeof (T));
       --dyn_arr->used;
     }
 }
