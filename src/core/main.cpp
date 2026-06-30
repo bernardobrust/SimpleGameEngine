@@ -42,8 +42,8 @@ update_positions (DynArr<Position> *positions, DynArr<EntityType> *types)
 {
   for (size_t i{ 0 }; i < length (positions); ++i)
     {
-      EntityType type = types->data[i];
-      Position pos = positions->data[i];
+      EntityType type = get (types, i);
+      Position pos = get (positions, i);
       switch (type)
         {
         case PLAYER:
@@ -67,9 +67,9 @@ render_sprites (DynArr<Position> *positions, DynArr<Sprite> *sprites)
 {
   for (size_t i{ 0 }; i < length (positions); ++i)
     {
-      std::cout << "Rendering sprite " << sprites->data[i].texture_id
-                << " at (" << positions->data[i].x << ", "
-                << positions->data[i].y << ")\n";
+      std::cout << "Rendering sprite " << get (sprites, i).texture_id
+                << " at (" << get (positions, i).x << ", "
+                << get (positions, i).y << ")\n";
     }
 }
 
@@ -85,9 +85,9 @@ update_entity_position (DynArr<Position> *positions, unsigned entity_id,
 get_entity (const EntityRegistry *entities, unsigned id)
 {
   EntityData e;
-  e.position = entities->positions->data[id];
-  e.sprite = entities->sprites->data[id];
-  e.type = entities->types->data[id];
+  e.position = get (entities->positions, id);
+  e.sprite = get (entities->sprites, id);
+  e.type = get (entities->types, id);
   return e;
 }
 

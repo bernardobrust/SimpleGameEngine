@@ -31,6 +31,17 @@ size (DynArr<T> *dyn_arr, bool header = false)
                 : dyn_arr->sza * sizeof (T);
 }
 
+template <typename T>
+T
+get (DynArr<T> *dyn_arr, size_t i)
+{
+  // For debug builds, this is *really* slow, but for non-debug builds it gets
+  // removed so it's great
+  assert (i < dyn_arr->used);
+
+  return dyn_arr->data[i];
+}
+
 // Debug
 template <typename T>
 void
