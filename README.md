@@ -1,6 +1,6 @@
 # Simple Game Engine
 
-**Version:** *0.0.1 pre-alpha "Just experimenting"*.
+**Version:** *0.0.1 alpha "Just experimenting"*.
 
 ## What
 A repository I decided to make just for fun to keep software engineering sharp while grinding throu my bachelor's math classes (don't get me wrong, I love Calculus and Linear Algebra, but there isn't a lot of programming in there). Also to try out a few things:

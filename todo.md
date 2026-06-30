@@ -1,10 +1,44 @@
+## Todo list for version 0.0.1 beta
+**GOAL:** Working GNU + Linux X11 platform layer (windowing only for now)
+
+We start with X11 as it's the most used, most Wayland users (like me) have XWayland to run X based aplications. I'll use `lX11` for this.
+
+However, Wayland is way better to develop and use than X11, so I'll be way more carefull with that one. I'll like do the wayland layer from scratch.
+
+### General
+- [x] Update docs pre-work
+- [ ] Modularized support for platform layer
+- [ ] Build system chooses module use based on OS and WINDOWING compilation variables
+- [ ] Update docs post-work
+
+### Core Engine
+- [ ] Open a X11 window
+- [ ] Draw something to it
+
+### Platform Layer
+- [ ] Choose lib based on compilation target
+
+Provide a platform-agnostic interface for the rest of the engine to use:
+- [ ] Generalized interface module with only signatures
+- [ ] Specialized X11 module implements the interface if the macro `PLATFORM_GNU_LINUX_X11` is defined (passed via `-DPLATFORM_GNU_LINUX_X11` in the makefile)
+
+The general module should provide (for now):
+- [ ] A `PlatformState` struct, containing a `void *` internal state (depends on the layer, templating here makes no sense)
+- [ ] `platform_init`: self-explanatory
+- [ ] `platform_update`: for now we just pool events, latter we will give it a buffer to blit for example
+- [ ] `platform_shutdown`: self-explanatory
+
+***
+
+# Previous version
+
 ## Todo list for version 0.0.1 alpha
 **GOAL:** A working dynamic array data structure
 
 ### General
 - [x] Update docs pre-work
 - [x] Modularized support for data structures
-- [x] Add gnu foirmatting
+- [x] Add gnu formating
 - [x] Update docs post-work
 
 ### Core Engine
@@ -29,45 +63,3 @@ Debug Utility:
 ### Problems for next versions
 - Of course, check that the data structure works correctly and efficienlty in the long run
 - We still have to do with ensuring access to the entity registry is controlled during debug builds
-
-***
-
-# Previous version
-
-## Todo list for version 0.0.1 pre-alpha
-**GOAL:** have a working data-oriented pipeline
-
-### General
-- [x] Update this TODO list with a more concrete plan (recursive?)
-- [x] Improve readme
-- [x] Setup a git repo
-- [x] Send to github
-
-### Build System
-- [x] Just support compiling a core for now with a module system
-
-### Core Engine
-Create basic data components: (SoA)
-- [x] Positions (floats)
-- [x] Sprites (just ints for now for testing)
-- [x] Entity types (enum with, player, enemy, etc...)
-
-Update functions:
-- [x] Update positions
-
-Render functions:
-- [x] For now just print something like "Rendered enemy X with sprite Y"
-
-Create a pipeline to render and update entities:
-- [x] Call updates and renders on all entities
-
-Access and update:
-- [x] Access to specific entity by id
-- [x] Altering data of a specific entity by it's id
-
-### Data Structures
-Use STL for now, it's reasonably efficient for these simple things, but latter we'll likely require some more specialized containers.
-
-### Problems for next versions
-- Somehow ensure all vector in EntityRegistry have the same size after adding/deleting elements
-- Benchmarking `std::vector` vs my own dynamic arrays (I can probably pull some tricks to make it faster).
