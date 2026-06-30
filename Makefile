@@ -68,11 +68,11 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 
 # System headers to pre-compile as modules
 # C headers
-SYS_HEADERS := cstdint cstdio cassert cstdlib cstring
+SYS_HEADERS := cstdlib
 # Temporary headers
 SYS_HEADERS += vector
 # Build/debug headers
-SYS_HEADERS += type_traits
+SYS_HEADERS += type_traits cassert iostream
 
 .PHONY: clean test setup
 

@@ -1,4 +1,4 @@
-import <cstdio>;
+import <iostream>;
 
 // Temporary
 import <vector>;
@@ -69,8 +69,8 @@ render_sprites (const std::vector<Position> &positions,
 {
   for (size_t i{ 0 }; i < positions.size (); ++i)
     {
-      printf ("Rendering sprite %d at (%f, %f)\n", sprites[i].texture_id,
-              positions[i].x, positions[i].y);
+      std::cout << "Rendering sprite" << sprites[i].texture_id << "at "
+                << positions[i].x << ", " << positions[i].y << "\n";
     }
 }
 
@@ -98,40 +98,30 @@ main ()
 {
   // Testing init
   dyn_arr::DynArr<int> *xs = dyn_arr::init<int> ();
-  printf ("xs allocated at: %p, intialized with size: %d, using %d\n", xs,
-          xs->sza, xs->used);
 
-    // Testing push
+  // Testing push
   dyn_arr::push (xs, 5);
-  printf ("xs allocated at: %p, with size: %d, using %d\n", xs, xs->sza,
-          xs->used);
+  dyn_arr::print_metadata (xs);
+  dyn_arr::print_data_int (xs);
 
-  for (size_t i{ 0 }; i < xs->used; ++i)
-    {
-      printf ("Element %ld = %d\n", i, xs->data[i]);
-    }
+  dyn_arr::push (xs, 10);
+  dyn_arr::print_metadata (xs);
+  dyn_arr::print_data_int (xs);
 
-    dyn_arr::push (xs, 10);
-  printf ("xs allocated at: %p, with size: %d, using %d\n", xs, xs->sza,
-          xs->used);
+  dyn_arr::push (xs, 1);
+  dyn_arr::push (xs, 2);
+  dyn_arr::push (xs, 3);
+  dyn_arr::push (xs, 4);
+  dyn_arr::print_metadata (xs);
+  dyn_arr::print_data_int (xs);
 
-  for (size_t i{ 0 }; i < xs->used; ++i)
-    {
-      printf ("Element %ld = %d\n", i, xs->data[i]);
-    }
-
-    dyn_arr::push (xs, 10);
-    dyn_arr::push (xs, 2);
-    dyn_arr::push (xs, 3);
-    dyn_arr::push (xs, 4);
-  printf ("xs allocated at: %p, with size: %d, using %d\n", xs, xs->sza,
-          xs->used);
-
-  for (size_t i{ 0 }; i < xs->used; ++i)
-    {
-      printf ("Element %ld = %d\n", i, xs->data[i]);
-    }
-
+  // Testing scaling by less than 2
+  dyn_arr::push (xs, 1, 1.5f);
+  dyn_arr::push (xs, 2, 1.5f);
+  dyn_arr::push (xs, 3, 1.5f);
+  dyn_arr::push (xs, 4, 1.5f);
+  dyn_arr::print_metadata (xs);
+  dyn_arr::print_data_int (xs);
 
   /*
 EntityRegistry registry;

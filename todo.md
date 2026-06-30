@@ -20,8 +20,12 @@ Funtions:
 - [ ] pop with an implicit de-scale parameter (false) that reduces the size of the vector after deleting if it falls bellow a threshold (2). **O(1) amortized**
 - [ ] insert, push but can specify a specific position. **O(n)**
 - [ ] delete, pop but can specify a specific position. **O(n)**
-- [ ] length, the amount of used slots
-- [ ] size, the total memory used by the data structure, with implicit header parameter (false) that adds the shadowed metadata to the size
+- [x] length, the amount of used slots
+- [x] size, the total memory used by the data structure, with implicit header parameter (false) that adds the shadowed metadata to the size
+
+Debug Utility:
+- [x] print_data prints all elements
+- [x] print_metadata prints used/sza
 
 ### Problems for next versions
 - Of course, check that the data structure works correctly and efficienlty in the long run

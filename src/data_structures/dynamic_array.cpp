@@ -1,28 +1,61 @@
 // Dynamic Array Data Structure
 export module dyn_arr;
 
-import <type_traits>;
+import <iostream>;
 import <cstdlib>;
 import <cassert>;
+import <type_traits>;
 
 export namespace engine::ds::dyn_arr
 {
-/*
-    Templated dynamic array data structure:
-    - Supports trivial data types
-    - Max elements: 2^{64-1} (18,446,744,073,709,551,615)
-    - 8 bytes of overhead (2 unsigneds of metadata)
-*/
 template <typename T> struct DynArr
 {
-  unsigned sza;
-  unsigned used;
+  size_t sza;
+  size_t used;
   T *data;
 };
 
+// Info
+template <typename T>
+inline size_t
+length (DynArr<T> *dyn_arr)
+{
+  return dyn_arr->used;
+}
+
+template <typename T>
+inline size_t
+size (DynArr<T> *dyn_arr, bool header = false)
+{
+  return header ? (dyn_arr->sza * sizeof (T)) + (sizeof (size_t) * 2)
+                : dyn_arr->sza * sizeof (T);
+}
+
+// Debug
+template <typename T>
+void
+print_data (DynArr<T> *dyn_arr)
+{
+  for (size_t i{ 0 }; i < length (dyn_arr); ++i)
+    {
+      std::cout << "Element " << i << " = " << dyn_arr->data[i] << "\n";
+    }
+}
+
+template <typename T>
+inline void
+print_metadata (DynArr<T> *dyn_arr)
+{
+  std::cout << "Length = " << dyn_arr::length (dyn_arr)
+            << ", Avaliable = " << dyn_arr->sza
+            << ", Size = " << dyn_arr::size (dyn_arr)
+            << ", Size (total) = " << dyn_arr::size (dyn_arr, true) << "\n";
+}
+
+// Actions
 template <typename T>
 DynArr<T> *
-init (unsigned sza = 1)
+init (size_t sza = 1)
 {
   // We need this to avoid a bunch of weird C++ stuff
   // Still, it's better than creating a bunch of copies of this function and
@@ -52,7 +85,7 @@ push (DynArr<T> *dyn_arr, T new_elem, float scale = 2.0f)
   // Realocate
   if (dyn_arr->used == dyn_arr->sza)
     {
-      dyn_arr->sza = (unsigned)(dyn_arr->sza * scale);
+      dyn_arr->sza = (size_t)(dyn_arr->sza * scale);
       dyn_arr->data = (T *)realloc (dyn_arr->data, sizeof (T) * dyn_arr->sza);
       dyn_arr->data[dyn_arr->used] = new_elem;
       ++dyn_arr->used;
