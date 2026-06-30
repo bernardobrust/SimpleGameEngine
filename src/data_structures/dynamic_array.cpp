@@ -4,6 +4,7 @@ export module dyn_arr;
 import <iostream>;
 import <cstdlib>;
 import <cassert>;
+import <cstring>;
 import <type_traits>;
 
 export namespace engine::ds::dyn_arr
@@ -32,7 +33,7 @@ size (DynArr<T> *dyn_arr, bool header = false)
 }
 
 template <typename T>
-T
+inline T
 get (DynArr<T> *dyn_arr, size_t i)
 {
   // For debug builds, this is *really* slow, but for non-debug builds it gets
@@ -40,6 +41,16 @@ get (DynArr<T> *dyn_arr, size_t i)
   assert (i < dyn_arr->used);
 
   return dyn_arr->data[i];
+}
+
+template <typename T>
+inline T *
+// get, but returns the address of the value to make it modifiable
+get_mut (DynArr<T> *dyn_arr, size_t i)
+{
+  assert (i < dyn_arr->used);
+
+  return &dyn_arr->data[i];
 }
 
 // Debug
@@ -104,6 +115,43 @@ push (DynArr<T> *dyn_arr, T new_elem, float scale = 2.0f)
   else
     {
       dyn_arr->data[dyn_arr->used] = new_elem;
+      ++dyn_arr->used;
+    }
+}
+
+template <typename T>
+void
+// "pos" is the index that the element will be at
+insert (DynArr<T> *dyn_arr, T new_elem, size_t pos, float scale = 2.0f)
+{
+  assert (dyn_arr != NULL);
+  assert (dyn_arr->sza != 0);
+  assert (scale >= 1.0f);
+
+  // Data we will need to copy
+  size_t start = pos, end = dyn_arr->used;
+
+  // Realocate
+  if (dyn_arr->used == dyn_arr->sza)
+    {
+      dyn_arr->sza = (size_t)(dyn_arr->sza * scale);
+      dyn_arr->data = (T *)realloc (dyn_arr->data, sizeof (T) * dyn_arr->sza);
+
+      // We copy the data in this range to 1 right, then put the new element at
+      // "start"
+      memcpy (&dyn_arr->data[pos + 1], &dyn_arr->data[pos],
+              (end - start) * sizeof (T));
+      dyn_arr->data[pos] = new_elem;
+
+      ++dyn_arr->used;
+    }
+  else
+    {
+      // We copy the data in this range to 1 right, then put the new element at
+      // "start"
+      memcpy (&dyn_arr->data[pos + 1], &dyn_arr->data[pos],
+              (end - start) * sizeof (T));
+      dyn_arr->data[pos] = new_elem;
       ++dyn_arr->used;
     }
 }

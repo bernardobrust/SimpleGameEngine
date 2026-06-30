@@ -43,20 +43,20 @@ update_positions (DynArr<Position> *positions, DynArr<EntityType> *types)
   for (size_t i{ 0 }; i < length (positions); ++i)
     {
       EntityType type = get (types, i);
-      Position pos = get (positions, i);
+      Position *pos = get_mut (positions, i);
       switch (type)
         {
         case PLAYER:
-          pos.x += 1.0f;
-          pos.y += 1.0f;
+          pos->x += 1.0f;
+          pos->y += 1.0f;
           break;
         case ENEMY_MELLE:
-          pos.x += 0.5f;
-          pos.y += 0.3f;
+          pos->x += 0.5f;
+          pos->y += 0.3f;
           break;
         case ENEMY_RANGED:
-          pos.x -= 0.3f;
-          pos.y -= 0.2f;
+          pos->x -= 0.3f;
+          pos->y -= 0.2f;
           break;
         }
     }
@@ -111,6 +111,10 @@ main ()
   push (registry.types, ENEMY_RANGED);
 
   update_entity_position (registry.positions, 0, { 10.0f, 12.0f });
+
+  insert (registry.positions, { 5.0f, 5.0f }, 1);
+  insert (registry.sprites, { 2 }, 1);
+  insert (registry.types, ENEMY_RANGED, 1);
 
   unsigned count = 3;
   while (count--)

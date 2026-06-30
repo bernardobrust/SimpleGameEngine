@@ -18,7 +18,7 @@ Funtions:
 - [x] init given a size, **DO NOT ZERO MEMORY ON ALLOCATION**, we assume the caller will assign latter. Because of this, we only support trivial datatypes, since this is a Data Oriented project this is fine. Moreover, we can document this with `static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable");` to check at compile time this assumption is correct. Metadata is stored by the struct.
 - [x] push with an implicit re-sacale parameter (2, can be any float > 1). **O(1) amortized**
 - [x] pop with an implicit de-scale parameter (false) that reduces the size of the vector after deleting if it falls bellow a threshold (2). **O(1) amortized**
-- [ ] insert, push but can specify a specific position. **O(n)**
+- [x] insert, push but can specify a specific position. **O(n)**
 - [ ] delete, pop but can specify a specific position. **O(n)**
 - [x] length, the amount of used slots
 - [x] size, the total memory used by the data structure, with implicit header parameter (false) that adds the shadowed metadata to the size

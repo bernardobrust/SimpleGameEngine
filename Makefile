@@ -20,12 +20,14 @@ endif
 
 BUILD_DIR := build
 
-SRCS 			:= $(shell find src/$(TARGET) -name *.cpp)
-DATA_STRUCTURES := $(shell find src/data_structures -name *.cpp)
 
 # We need to compile the data structures before the core engine
-OBJS := $(DATA_STRUCTURES:%=$(BUILD_DIR)/%.o)
+DATA_STRUCTURES := $(shell find src/data_structures -name *.cpp)
+OBJS 			:= $(DATA_STRUCTURES:%=$(BUILD_DIR)/%.o)
+
+SRCS := $(shell find src/$(TARGET) -name *.cpp)
 OBJS += $(SRCS:%=$(BUILD_DIR)/%.o)
+
 DEPS := $(OBJS:.o=.d)
 
 CXXFLAGS := $(CXX_STD) $(MOD_FLAG)
@@ -68,9 +70,7 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 
 # System headers to pre-compile as modules
 # C headers
-SYS_HEADERS := cstdlib
-# Temporary headers
-SYS_HEADERS += vector
+SYS_HEADERS := cstdlib cstring
 # Build/debug headers
 SYS_HEADERS += type_traits cassert iostream
 
