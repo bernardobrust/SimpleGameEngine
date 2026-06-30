@@ -92,36 +92,50 @@ get_entity (const EntityRegistry &entities, unsigned id)
   return e;
 }
 
-using namespace engine::ds;
+// For testing only now
+using namespace engine::ds::dyn_arr;
 int
 main ()
 {
   // Testing init
-  dyn_arr::DynArr<int> *xs = dyn_arr::init<int> ();
+  DynArr<int> *xs = init<int> ();
 
   // Testing push
-  dyn_arr::push (xs, 5);
-  dyn_arr::print_metadata (xs);
-  dyn_arr::print_data_int (xs);
+  push (xs, 5);
+  print_metadata (xs);
+  print_data (xs);
 
-  dyn_arr::push (xs, 10);
-  dyn_arr::print_metadata (xs);
-  dyn_arr::print_data_int (xs);
+  push (xs, 10);
+  print_metadata (xs);
+  print_data (xs);
 
-  dyn_arr::push (xs, 1);
-  dyn_arr::push (xs, 2);
-  dyn_arr::push (xs, 3);
-  dyn_arr::push (xs, 4);
-  dyn_arr::print_metadata (xs);
-  dyn_arr::print_data_int (xs);
+  push (xs, 1);
+  push (xs, 2);
+  push (xs, 3);
+  push (xs, 4);
+  print_metadata (xs);
+  print_data (xs);
 
   // Testing scaling by less than 2
-  dyn_arr::push (xs, 1, 1.5f);
-  dyn_arr::push (xs, 2, 1.5f);
-  dyn_arr::push (xs, 3, 1.5f);
-  dyn_arr::push (xs, 4, 1.5f);
-  dyn_arr::print_metadata (xs);
-  dyn_arr::print_data_int (xs);
+  push (xs, 1, 1.5f);
+  push (xs, 2, 1.5f);
+  push (xs, 3, 1.5f);
+  push (xs, 4, 1.5f);
+  print_metadata (xs);
+  print_data (xs);
+
+  // Try poping with resize
+  unsigned count = 7;
+  while (count--)
+    {
+      pop (xs, true);
+    }
+  print_metadata (xs);
+  print_data (xs);
+
+  pop (xs, true);
+  print_metadata (xs);
+  print_data (xs);
 
   /*
 EntityRegistry registry;

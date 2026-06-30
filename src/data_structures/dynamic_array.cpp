@@ -46,8 +46,7 @@ template <typename T>
 inline void
 print_metadata (DynArr<T> *dyn_arr)
 {
-  std::cout << "Length = " << dyn_arr::length (dyn_arr)
-            << ", Avaliable = " << dyn_arr->sza
+  std::cout << "Length = " << dyn_arr->used << ", Avaliable = " << dyn_arr->sza
             << ", Size = " << dyn_arr::size (dyn_arr)
             << ", Size (total) = " << dyn_arr::size (dyn_arr, true) << "\n";
 }
@@ -81,7 +80,8 @@ push (DynArr<T> *dyn_arr, T new_elem, float scale = 2.0f)
 {
   assert (dyn_arr != NULL);
   assert (dyn_arr->sza != 0);
-  assert (scale >= 1);
+  assert (scale >= 1.0f);
+
   // Realocate
   if (dyn_arr->used == dyn_arr->sza)
     {
@@ -94,6 +94,35 @@ push (DynArr<T> *dyn_arr, T new_elem, float scale = 2.0f)
     {
       dyn_arr->data[dyn_arr->used] = new_elem;
       ++dyn_arr->used;
+    }
+}
+
+template <typename T>
+void
+// I think it's a good design decision to not descaalate by default
+pop (DynArr<T> *dyn_arr, bool descale = false, float scale = 2.0f)
+{
+  assert (dyn_arr != NULL);
+  assert (dyn_arr->sza > 0);
+  // We obviously can't pop nothing
+  // We could ignore, but if this happes it's likely a bug
+  assert (dyn_arr->used > 0);
+  assert (scale >= 1.0f);
+
+  // Release
+  if (descale and dyn_arr->sza / dyn_arr->used >= scale)
+    {
+      dyn_arr->sza = (size_t)(dyn_arr->sza / scale);
+
+      // Just in case
+      assert (dyn_arr->sza >= dyn_arr->used);
+
+      dyn_arr->data = (T *)realloc (dyn_arr->data, sizeof (T) * dyn_arr->sza);
+      --dyn_arr->used;
+    }
+  else
+    {
+      --dyn_arr->used;
     }
 }
 
