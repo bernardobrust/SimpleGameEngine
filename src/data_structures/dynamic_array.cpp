@@ -41,4 +41,27 @@ init (unsigned sza = 1)
 
   return dyn_arr;
 }
+
+template <typename T>
+void
+push (DynArr<T> *dyn_arr, T new_elem, float scale = 2.0f)
+{
+  assert (dyn_arr != NULL);
+  assert (dyn_arr->sza != 0);
+  assert (scale >= 1);
+  // Realocate
+  if (dyn_arr->used == dyn_arr->sza)
+    {
+      dyn_arr->sza = (unsigned)(dyn_arr->sza * scale);
+      dyn_arr->data = (T *)realloc (dyn_arr->data, sizeof (T) * dyn_arr->sza);
+      dyn_arr->data[dyn_arr->used] = new_elem;
+      ++dyn_arr->used;
+    }
+  else
+    {
+      dyn_arr->data[dyn_arr->used] = new_elem;
+      ++dyn_arr->used;
+    }
+}
+
 }

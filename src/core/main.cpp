@@ -101,23 +101,57 @@ main ()
   printf ("xs allocated at: %p, intialized with size: %d, using %d\n", xs,
           xs->sza, xs->used);
 
-  EntityRegistry registry;
-  registry.positions = { { 0.0f, 0.0f }, { 4.0f, 5.0f }, { 3.5f, 2.0f } };
-  registry.sprites = { { 1 }, { 2 }, { 3 } };
-  registry.types = { PLAYER, ENEMY_MELLE, ENEMY_RANGED };
+    // Testing push
+  dyn_arr::push (xs, 5);
+  printf ("xs allocated at: %p, with size: %d, using %d\n", xs, xs->sza,
+          xs->used);
 
-  update_entity_position (registry.positions, 0, { 10.0f, 12.0f });
-
-  unsigned count = 3;
-  while (count--)
+  for (size_t i{ 0 }; i < xs->used; ++i)
     {
-      update_positions (registry.positions, registry.types);
-      render_sprites (registry.positions, registry.sprites);
-
-      printf ("\n");
+      printf ("Element %ld = %d\n", i, xs->data[i]);
     }
 
-  EntityData e = get_entity (registry, 1);
-  printf ("Pos = (%f, %f), Sprite id = %d, Type id = %d", e.position.x,
-          e.position.y, e.sprite.texture_id, e.type);
+    dyn_arr::push (xs, 10);
+  printf ("xs allocated at: %p, with size: %d, using %d\n", xs, xs->sza,
+          xs->used);
+
+  for (size_t i{ 0 }; i < xs->used; ++i)
+    {
+      printf ("Element %ld = %d\n", i, xs->data[i]);
+    }
+
+    dyn_arr::push (xs, 10);
+    dyn_arr::push (xs, 2);
+    dyn_arr::push (xs, 3);
+    dyn_arr::push (xs, 4);
+  printf ("xs allocated at: %p, with size: %d, using %d\n", xs, xs->sza,
+          xs->used);
+
+  for (size_t i{ 0 }; i < xs->used; ++i)
+    {
+      printf ("Element %ld = %d\n", i, xs->data[i]);
+    }
+
+
+  /*
+EntityRegistry registry;
+registry.positions = { { 0.0f, 0.0f }, { 4.0f, 5.0f }, { 3.5f, 2.0f } };
+registry.sprites = { { 1 }, { 2 }, { 3 } };
+registry.types = { PLAYER, ENEMY_MELLE, ENEMY_RANGED };
+
+update_entity_position (registry.positions, 0, { 10.0f, 12.0f });
+
+unsigned count = 3;
+while (count--)
+  {
+    update_positions (registry.positions, registry.types);
+    render_sprites (registry.positions, registry.sprites);
+
+    printf ("\n");
+  }
+
+EntityData e = get_entity (registry, 1);
+printf ("Pos = (%f, %f), Sprite id = %d, Type id = %d", e.position.x,
+        e.position.y, e.sprite.texture_id, e.type);
+  */
 }
