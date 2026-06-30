@@ -17,6 +17,7 @@ template <typename T> struct DynArr
 };
 
 // Info
+// --------------------------------------------------------------------
 template <typename T>
 inline size_t
 length (DynArr<T> *dyn_arr)
@@ -52,8 +53,10 @@ get_mut (DynArr<T> *dyn_arr, size_t i)
 
   return &dyn_arr->data[i];
 }
+// --------------------------------------------------------------------
 
 // Debug
+// --------------------------------------------------------------------
 template <typename T>
 void
 print_data (DynArr<T> *dyn_arr)
@@ -72,8 +75,10 @@ print_metadata (DynArr<T> *dyn_arr)
             << ", Size = " << dyn_arr::size (dyn_arr)
             << ", Size (total) = " << dyn_arr::size (dyn_arr, true) << "\n";
 }
+// --------------------------------------------------------------------
 
 // Actions
+// --------------------------------------------------------------------
 template <typename T>
 DynArr<T> *
 init (size_t sza = 1)
@@ -84,11 +89,12 @@ init (size_t sza = 1)
   static_assert (std::is_trivially_copyable_v<T>,
                  "T must be trivially copyable");
 
-  // The lion checks for failed allocations only on debug
   T *data = (T *)malloc (sizeof (T) * sza);
   assert (data != NULL);
+
   DynArr<T> *dyn_arr = (DynArr<T> *)malloc (sizeof (DynArr<T>));
   assert (dyn_arr != NULL);
+
   dyn_arr->sza = sza;
   dyn_arr->used = 0;
   dyn_arr->data = data;
@@ -109,6 +115,8 @@ push (DynArr<T> *dyn_arr, T new_elem, float scale = 2.0f)
     {
       dyn_arr->sza = (size_t)(dyn_arr->sza * scale);
       dyn_arr->data = (T *)realloc (dyn_arr->data, sizeof (T) * dyn_arr->sza);
+      assert (dyn_arr->data != NULL);
+
       dyn_arr->data[dyn_arr->used] = new_elem;
       ++dyn_arr->used;
     }
@@ -136,6 +144,7 @@ insert (DynArr<T> *dyn_arr, T new_elem, size_t pos, float scale = 2.0f)
     {
       dyn_arr->sza = (size_t)(dyn_arr->sza * scale);
       dyn_arr->data = (T *)realloc (dyn_arr->data, sizeof (T) * dyn_arr->sza);
+      assert (dyn_arr->data != NULL);
 
       // We copy the data in this range to 1 right, then put the new element at
       // "start"
@@ -176,6 +185,8 @@ pop (DynArr<T> *dyn_arr, bool descale = false, float scale = 2.0f)
       assert (dyn_arr->sza >= dyn_arr->used);
 
       dyn_arr->data = (T *)realloc (dyn_arr->data, sizeof (T) * dyn_arr->sza);
+      assert (dyn_arr->data != NULL);
+
       --dyn_arr->used;
     }
   else
@@ -201,6 +212,7 @@ remove (DynArr<T> *dyn_arr, size_t pos, bool descale = false,
     {
       dyn_arr->sza = (size_t)(dyn_arr->sza / scale);
       dyn_arr->data = (T *)realloc (dyn_arr->data, sizeof (T) * dyn_arr->sza);
+      assert (dyn_arr->data != NULL);
 
       // We copy the data in this range to pos, from 1 to the right
       memcpy (&dyn_arr->data[pos], &dyn_arr->data[pos + 1],
@@ -217,5 +229,6 @@ remove (DynArr<T> *dyn_arr, size_t pos, bool descale = false,
       --dyn_arr->used;
     }
 }
+// --------------------------------------------------------------------
 
 }

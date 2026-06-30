@@ -5,11 +5,10 @@
 - [x] Update docs pre-work
 - [x] Modularized support for data structures
 - [x] Add gnu foirmatting
-- [ ] Update docs post-work
+- [x] Update docs post-work
 
 ### Core Engine
 - [x] Change `EntityRegistry` to use `engine::ds::dyn_arr`
-- [ ] Create assertions on functions that update the size of `EntityRegistry` to check they are matching. This is where C++26 contracts would really help instead of putting `assert` at the beggining and at the end of the function.
 
 ### Data Structures
 - [x] Create a `engine::ds::dyn_arr` module, should be templated (justified)
@@ -19,7 +18,7 @@ Funtions:
 - [x] push with an implicit re-sacale parameter (2, can be any float > 1). **O(1) amortized**
 - [x] pop with an implicit de-scale parameter (false) that reduces the size of the vector after deleting if it falls bellow a threshold (2). **O(1) amortized**
 - [x] insert, push but can specify a specific position. **O(n)**
-- [x] remove (delete is taken), pop but can specify a specific position. **O(n)**
+- [x] remove (delete is taken as a keyword), pop but can specify a specific position. **O(n)**
 - [x] length, the amount of used slots
 - [x] size, the total memory used by the data structure, with implicit header parameter (false) that adds the shadowed metadata to the size
 
@@ -29,6 +28,7 @@ Debug Utility:
 
 ### Problems for next versions
 - Of course, check that the data structure works correctly and efficienlty in the long run
+- We still have to do with ensuring access to the entity registry is controlled during debug builds
 
 ***
 

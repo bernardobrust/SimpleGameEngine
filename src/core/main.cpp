@@ -81,7 +81,7 @@ update_entity_position (DynArr<Position> *positions, unsigned entity_id,
   positions->data[entity_id] = new_pos;
 }
 
-[[nodiscard]] EntityData
+EntityData
 get_entity (const EntityRegistry *entities, unsigned id)
 {
   EntityData e;
@@ -151,46 +151,4 @@ main ()
 
   print_data (registry.types);
   print_metadata (registry.types);
-
-  /*
-    // Testing init
-    DynArr<int> *xs = init<int> ();
-
-    // Testing push
-    push (xs, 5);
-    print_metadata (xs);
-    print_data (xs);
-
-    push (xs, 10);
-    print_metadata (xs);
-    print_data (xs);
-
-    push (xs, 1);
-    push (xs, 2);
-    push (xs, 3);
-    push (xs, 4);
-    print_metadata (xs);
-    print_data (xs);
-
-    // Testing scaling by less than 2
-    push (xs, 1, 1.5f);
-    push (xs, 2, 1.5f);
-    push (xs, 3, 1.5f);
-    push (xs, 4, 1.5f);
-    print_metadata (xs);
-    print_data (xs);
-
-    // Try poping with resize
-    unsigned count = 7;
-    while (count--)
-      {
-        pop (xs, true);
-      }
-    print_metadata (xs);
-    print_data (xs);
-
-    pop (xs, true);
-    print_metadata (xs);
-    print_data (xs);
-    */
 }
