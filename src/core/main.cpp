@@ -3,6 +3,8 @@ import <cstdio>;
 // Temporary
 import <vector>;
 
+import dyn_arr;
+
 // We could also have speeds, but this is just for testing
 struct Position { float x, y; };
 struct Sprite { unsigned texture_id; };
@@ -66,7 +68,12 @@ void update_entity_position(std::vector<Position>& positions, unsigned entity_id
     return e;
 }
 
+using namespace engine::ds;
 int main() {
+    // Testing init
+    dyn_arr::DynArr<int>* xs = dyn_arr::init<int>();
+    printf("xs allocated at: %p, intialized with size: %d, using %d\n", xs, xs->sza, xs->used);
+
     EntityRegistry registry;
     registry.positions = {{0.0f, 0.0f}, {4.0f, 5.0f}, {3.5f, 2.0f}};
     registry.sprites = {{1}, {2}, {3}};

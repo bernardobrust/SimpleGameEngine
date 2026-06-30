@@ -19,12 +19,13 @@ ifeq ($(filter clean,$(MAKECMDGOALS)),)
 endif
 
 BUILD_DIR := build
-LIB_DIR   := lib
 
-SRCS     := $(shell find src/$(TARGET) -name *.cpp)
-INC_DIRS := $(shell find src/$(TARGET) -type d) $(LIB_DIR)
+SRCS 			:= $(shell find src/$(TARGET) -name *.cpp)
+DATA_STRUCTURES := $(shell find src/data_structures -name *.cpp)
 
-OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+# We need to compile the data structures before the core engine
+OBJS := $(DATA_STRUCTURES:%=$(BUILD_DIR)/%.o)
+OBJS += $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 
 CXXFLAGS := $(CXX_STD) $(MOD_FLAG)
@@ -42,14 +43,13 @@ else
 endif
 
 WARN_FLAGS    := -Wall -Wextra -Werror
-DBG_FLAGS     := -ggdb -O0 -fsanitize=address
+DBG_FLAGS     := -ggdb -O0
 RELEASE_FLAGS := -Ofast -flto -march=native -DNDEBUG
 
 LDFLAGS :=
 
 ifeq ($(filter $(MODE),debug),$(MODE))
     CXXFLAGS += $(WARN_FLAGS) $(DBG_FLAGS)
-    LDFLAGS  += -fsanitize=address
 else
     CXXFLAGS += $(RELEASE_FLAGS)
 endif
@@ -67,7 +67,12 @@ $(BUILD_DIR)/%.cpp.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # System headers to pre-compile as modules
-SYS_HEADERS := cstdint cstdio cassert cstdlib cstring vector
+# C headers
+SYS_HEADERS := cstdint cstdio cassert cstdlib cstring
+# Temporary headers
+SYS_HEADERS += vector
+# Build/debug headers
+SYS_HEADERS += type_traits
 
 .PHONY: clean test setup
 

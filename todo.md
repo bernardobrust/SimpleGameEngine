@@ -3,7 +3,8 @@
 
 ### General
 - [x] Update docs pre-work
-- [ ] Modularized support for data structures
+- [x] Modularized support for data structures
+- [ ] Add gnu foirmatting
 - [ ] Update docs post-work
 
 ### Core Engine
@@ -14,7 +15,7 @@
 - [ ] Create a `engine::ds::dyn_arr` module, should be templated (justified)
 
 Funtions:
-- [ ] init given a size, **DO NOT ZERO MEMORY ON ALLOCATION**, we assume the caller will assign latter. Because of this, we only support trivial datatypes, since this is a Data Oriented project this is fine. Moreover, we can document this with `static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable");` to check at compile time this assumption is correct. Metadata is stored by the struct.
+- [x] init given a size, **DO NOT ZERO MEMORY ON ALLOCATION**, we assume the caller will assign latter. Because of this, we only support trivial datatypes, since this is a Data Oriented project this is fine. Moreover, we can document this with `static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable");` to check at compile time this assumption is correct. Metadata is stored by the struct.
 - [ ] push with an implicit re-sacale parameter (2). **O(1) amortized**
 - [ ] pop with an implicit de-scale parameter (false) that reduces the size of the vector after deleting if it falls bellow a threshold (2). **O(1) amortized**
 - [ ] insert, push but can specify a specific position. **O(n)**
