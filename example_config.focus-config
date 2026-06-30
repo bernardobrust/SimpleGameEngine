@@ -1,0 +1,21 @@
+[16]  # Version number. Do not delete.
+
+[[workspace]]
+# Enter the absolute path to where you cloned the repo here
+
+
+[[build commands]]
+error_regex: ^(?P<file>.*):(?P<line>\d+):(?P<col>\d+): (?P<type>error|warning): (?P<msg>.*) (\[(?P<msg1>.*)\])?$
+
+[Build Core Engine for Debug]
+# Change "-j6" to min(nproc's output, your ram / 2)
+build_command: make -j6 MODE=debug TARGET=core
+key_binding: F1
+
+[Run Core Engine in Debug]
+build_command: ./build/debug/core
+key_binding: F2
+
+[Format Current File]
+build_command: clang-format -i %FILE%
+key_binding: F9

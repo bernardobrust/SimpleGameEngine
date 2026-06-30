@@ -4,7 +4,7 @@
 ### General
 - [x] Update docs pre-work
 - [x] Modularized support for data structures
-- [ ] Add gnu foirmatting
+- [x] Add gnu foirmatting
 - [ ] Update docs post-work
 
 ### Core Engine
