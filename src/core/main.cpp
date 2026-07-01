@@ -1,9 +1,9 @@
 import <iostream>;
 
 import dyn_arr;
+import platform;
 
-// For testing only now
-using namespace engine::ds::dyn_arr;
+using namespace engine;
 
 // We could also have speeds, but this is just for testing
 struct Position
@@ -32,18 +32,19 @@ struct EntityData
 // Paralel vectors
 struct EntityRegistry
 {
-  DynArr<Position> *positions;
-  DynArr<Sprite> *sprites;
-  DynArr<EntityType> *types;
+  ds::dyn_arr::DynArr<Position> *positions;
+  ds::dyn_arr::DynArr<Sprite> *sprites;
+  ds::dyn_arr::DynArr<EntityType> *types;
 };
 
 void
-update_positions (DynArr<Position> *positions, DynArr<EntityType> *types)
+update_positions (ds::dyn_arr::DynArr<Position> *positions,
+                  ds::dyn_arr::DynArr<EntityType> *types)
 {
   for (size_t i{ 0 }; i < length (positions); ++i)
     {
-      EntityType type = get (types, i);
-      Position *pos = get_mut (positions, i);
+      EntityType type = ds::dyn_arr::get (types, i);
+      Position *pos = ds::dyn_arr::get_mut (positions, i);
       switch (type)
         {
         case PLAYER:
@@ -63,31 +64,34 @@ update_positions (DynArr<Position> *positions, DynArr<EntityType> *types)
 }
 
 void
-render_sprites (DynArr<Position> *positions, DynArr<Sprite> *sprites)
+render_sprites (ds::dyn_arr::DynArr<Position> *positions,
+                ds::dyn_arr::DynArr<Sprite> *sprites)
 {
   for (size_t i{ 0 }; i < length (positions); ++i)
     {
-      std::cout << "Rendering sprite " << get (sprites, i).texture_id
-                << " at (" << get (positions, i).x << ", "
-                << get (positions, i).y << ")\n";
+      std::cout << "Rendering sprite "
+                << ds::dyn_arr::get (sprites, i).texture_id << " at ("
+                << ds::dyn_arr::get (positions, i).x << ", "
+                << ds::dyn_arr::get (positions, i).y << ")\n";
     }
 }
 
 void
-update_entity_position (DynArr<Position> *positions, unsigned entity_id,
-                        Position new_pos)
+update_entity_position (ds::dyn_arr::DynArr<Position> *positions,
+                        unsigned entity_id, Position new_pos)
 {
   // We could have some validation logic here for example
-  positions->data[entity_id] = new_pos;
+  Position *pos = ds::dyn_arr::get_mut(positions, entity_id);
+  *pos = new_pos;
 }
 
 EntityData
 get_entity (const EntityRegistry *entities, unsigned id)
 {
   EntityData e;
-  e.position = get (entities->positions, id);
-  e.sprite = get (entities->sprites, id);
-  e.type = get (entities->types, id);
+  e.position = ds::dyn_arr::get (entities->positions, id);
+  e.sprite = ds::dyn_arr::get (entities->sprites, id);
+  e.type = ds::dyn_arr::get (entities->types, id);
   return e;
 }
 
@@ -95,49 +99,49 @@ int
 main ()
 {
   EntityRegistry registry;
-  registry.positions = init<Position> ();
-  push (registry.positions, { 0.0f, 0.0f });
-  push (registry.positions, { 1.5f, 2.0f });
-  push (registry.positions, { 2.0f, 3.0f });
+  registry.positions = ds::dyn_arr::init<Position> ();
+  ds::dyn_arr::push (registry.positions, { 0.0f, 0.0f });
+  ds::dyn_arr::push (registry.positions, { 1.5f, 2.0f });
+  ds::dyn_arr::push (registry.positions, { 2.0f, 3.0f });
 
-  registry.sprites = init<Sprite> ();
-  push (registry.sprites, { 1 });
-  push (registry.sprites, { 2 });
-  push (registry.sprites, { 3 });
+  registry.sprites = ds::dyn_arr::init<Sprite> ();
+  ds::dyn_arr::push (registry.sprites, { 1 });
+  ds::dyn_arr::push (registry.sprites, { 2 });
+  ds::dyn_arr::push (registry.sprites, { 3 });
 
-  registry.types = init<EntityType> ();
-  push (registry.types, PLAYER);
-  push (registry.types, ENEMY_MELLE);
-  push (registry.types, ENEMY_RANGED);
+  registry.types = ds::dyn_arr::init<EntityType> ();
+  ds::dyn_arr::push (registry.types, PLAYER);
+  ds::dyn_arr::push (registry.types, ENEMY_MELLE);
+  ds::dyn_arr::push (registry.types, ENEMY_RANGED);
 
   update_entity_position (registry.positions, 0, { 10.0f, 12.0f });
 
   // Test insert and remove, if it's right this whole block does nothing
   // ----------------------------------------------
-  insert (registry.positions, { 5.0f, 5.0f }, 1);
-  insert (registry.sprites, { 4 }, 1);
-  insert (registry.types, ENEMY_RANGED, 1);
+  ds::dyn_arr::insert (registry.positions, { 5.0f, 5.0f }, 1);
+  ds::dyn_arr::insert (registry.sprites, { 4 }, 1);
+  ds::dyn_arr::insert (registry.types, ENEMY_RANGED, 1);
 
-  insert (registry.positions, { 5.0f, 5.0f }, 1);
-  insert (registry.sprites, { 4 }, 1);
-  insert (registry.types, ENEMY_RANGED, 1);
+  ds::dyn_arr::insert (registry.positions, { 5.0f, 5.0f }, 1);
+  ds::dyn_arr::insert (registry.sprites, { 4 }, 1);
+  ds::dyn_arr::insert (registry.types, ENEMY_RANGED, 1);
 
-  insert (registry.positions, { 5.0f, 5.0f }, 1);
-  insert (registry.sprites, { 4 }, 1);
-  insert (registry.types, ENEMY_RANGED, 1);
+  ds::dyn_arr::insert (registry.positions, { 5.0f, 5.0f }, 1);
+  ds::dyn_arr::insert (registry.sprites, { 4 }, 1);
+  ds::dyn_arr::insert (registry.types, ENEMY_RANGED, 1);
 
-  remove (registry.positions, 1);
-  remove (registry.sprites, 1);
-  remove (registry.types, 1);
+  ds::dyn_arr::remove (registry.positions, 1);
+  ds::dyn_arr::remove (registry.sprites, 1);
+  ds::dyn_arr::remove (registry.types, 1);
 
-  remove (registry.positions, 1);
-  remove (registry.sprites, 1);
-  remove (registry.types, 1);
+  ds::dyn_arr::remove (registry.positions, 1);
+  ds::dyn_arr::remove (registry.sprites, 1);
+  ds::dyn_arr::remove (registry.types, 1);
 
   // Descalate so metadata shows Avaliable = 4
-  remove (registry.positions, 1, true);
-  remove (registry.sprites, 1, true);
-  remove (registry.types, 1, true);
+  ds::dyn_arr::remove (registry.positions, 1, true);
+  ds::dyn_arr::remove (registry.sprites, 1, true);
+  ds::dyn_arr::remove (registry.types, 1, true);
   // ----------------------------------------------
 
   unsigned count = 3;
@@ -149,6 +153,6 @@ main ()
       std::cout << "\n";
     }
 
-  print_data (registry.types);
-  print_metadata (registry.types);
+  ds::dyn_arr::print_data (registry.types);
+  ds::dyn_arr::print_metadata (registry.types);
 }
