@@ -9,7 +9,7 @@ error_regex: ^(?P<file>.*):(?P<line>\d+):(?P<col>\d+): (?P<type>error|warning): 
 
 [Build Core Engine for Debug]
 # Change "-j6" to min(nproc's output, your ram / 2)
-build_command: make -j6 MODE=debug TARGET=core
+build_command: make -j6 MODE=debug
 key_binding: F1
 
 [Run Core Engine in Debug]

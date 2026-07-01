@@ -1,6 +1,6 @@
 # Simple Game Engine
 
-**Version:** *0.0.1 alpha "Just experimenting"*.
+**Version:** *0.0.1 beta "Just experimenting"*.
 
 ## What
 A repository I decided to make just for fun to keep software engineering sharp while grinding throu my bachelor's math classes (don't get me wrong, I love Calculus and Linear Algebra, but there isn't a lot of programming in there). Also to try out a few things:
@@ -14,20 +14,27 @@ Please don't use this as an actuall engine, this is just a reference/POC/pet pro
 
 ## Building
 Clone the repo and enter it with:
-- A C++26 compatible compiler (makefile defaults to `g++`);
-- GNU Make.
+- A C++26 compatible compiler
+- GNU Make
+- If building with GNU + Linux X11, `lX11` is also requiered
 
 Then for a debug build:
 ```bash
-make -j$(nproc) TARGET=core
+make -j$(nproc)
 ```
 
 For a release build:
 ```bash
-make -j$(nproc) MODE=release TARGET=core
+make -j$(nproc) MODE=release
 ```
 
-More build options will be added latter as the project grows in complexity.
+Configuration details:
+Defaults and other options, all can be set:
+- C++ compiler: `g++`. If you change make sure to also change `CXX_MOD` on the makefile
+- TARGET: `core`. Other: `editor, test, benchmark` (all unimplemented)
+- MODE: `debug`. Other: `release`
+- WINDOWING (only used for GNU + Linux): `X11`. Other: `Wayland` (unimplemented)
+- OS: `gnu_linux`. Other: `windows` (unimplemented)
 
 A sample config for [Focus Editor](https://github.com/focus-editor/focus) is provided along with the project, only requiering you to copy it to where your focus projects are and setup the absolute path to the root (compiles with F1 and runs with F2).
 

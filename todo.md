@@ -9,11 +9,11 @@ However, Wayland is way better to develop and use than X11, so I'll be way more 
 - [x] Update docs pre-work
 - [x] Modularized support for platform layer
 - [x] Build system chooses module use based on OS and WINDOWING compilation macros
-- [ ] Update docs post-work
+- [x] Update docs post-work
 
 ### Core Engine
-- [ ] Open a X11 window
-- [ ] Draw something to it
+- [x] Open a X11 window
+- [x] Draw something to it
 
 ### Platform Layer
 - [x] Choose lib based on compilation target
@@ -23,10 +23,10 @@ Provide a platform-agnostic interface for the rest of the engine to use:
 - [x] Specialized X11 module implements the interface if the macro `PLATFORM_GNU_LINUX_X11` is defined (passed via `-DPLATFORM_GNU_LINUX_X11` in the makefile)
 
 The general module should provide (for now):
-- [ ] A `PlatformState` struct, containing a `void *` internal state (depends on the layer, templating here makes no sense)
-- [ ] `platform_init`: self-explanatory
-- [ ] `platform_update`: for now we just pool events, latter we will give it a buffer to blit for example
-- [ ] `platform_shutdown`: self-explanatory
+- [x] A `PlatformState` struct, containing a `void *` internal state (depends on the layer, templating here makes no sense)
+- [x] `platform_init`: self-explanatory
+- [x] `platform_update`: for now we just pool events, latter we will give it a buffer to blit for example
+- [x] `platform_shutdown`: self-explanatory
 
 ***
 

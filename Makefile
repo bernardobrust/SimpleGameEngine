@@ -10,6 +10,7 @@ MODE      ?= debug
 WINDOWING ?= X11
 
 VALID_TARGETS := core
+TARGET		  ?= core
 
 # TODO: set OS target (useless for now)
 OS := gnu_linux
