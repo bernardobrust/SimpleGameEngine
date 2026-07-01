@@ -81,7 +81,7 @@ update_entity_position (ds::dyn_arr::DynArr<Position> *positions,
                         unsigned entity_id, Position new_pos)
 {
   // We could have some validation logic here for example
-  Position *pos = ds::dyn_arr::get_mut(positions, entity_id);
+  Position *pos = ds::dyn_arr::get_mut (positions, entity_id);
   *pos = new_pos;
 }
 
@@ -98,61 +98,13 @@ get_entity (const EntityRegistry *entities, unsigned id)
 int
 main ()
 {
-  EntityRegistry registry;
-  registry.positions = ds::dyn_arr::init<Position> ();
-  ds::dyn_arr::push (registry.positions, { 0.0f, 0.0f });
-  ds::dyn_arr::push (registry.positions, { 1.5f, 2.0f });
-  ds::dyn_arr::push (registry.positions, { 2.0f, 3.0f });
+  platform::PlatformState platform_state;
+  platform::init (&platform_state, "Hello!", 0, 0, 480, 360);
 
-  registry.sprites = ds::dyn_arr::init<Sprite> ();
-  ds::dyn_arr::push (registry.sprites, { 1 });
-  ds::dyn_arr::push (registry.sprites, { 2 });
-  ds::dyn_arr::push (registry.sprites, { 3 });
-
-  registry.types = ds::dyn_arr::init<EntityType> ();
-  ds::dyn_arr::push (registry.types, PLAYER);
-  ds::dyn_arr::push (registry.types, ENEMY_MELLE);
-  ds::dyn_arr::push (registry.types, ENEMY_RANGED);
-
-  update_entity_position (registry.positions, 0, { 10.0f, 12.0f });
-
-  // Test insert and remove, if it's right this whole block does nothing
-  // ----------------------------------------------
-  ds::dyn_arr::insert (registry.positions, { 5.0f, 5.0f }, 1);
-  ds::dyn_arr::insert (registry.sprites, { 4 }, 1);
-  ds::dyn_arr::insert (registry.types, ENEMY_RANGED, 1);
-
-  ds::dyn_arr::insert (registry.positions, { 5.0f, 5.0f }, 1);
-  ds::dyn_arr::insert (registry.sprites, { 4 }, 1);
-  ds::dyn_arr::insert (registry.types, ENEMY_RANGED, 1);
-
-  ds::dyn_arr::insert (registry.positions, { 5.0f, 5.0f }, 1);
-  ds::dyn_arr::insert (registry.sprites, { 4 }, 1);
-  ds::dyn_arr::insert (registry.types, ENEMY_RANGED, 1);
-
-  ds::dyn_arr::remove (registry.positions, 1);
-  ds::dyn_arr::remove (registry.sprites, 1);
-  ds::dyn_arr::remove (registry.types, 1);
-
-  ds::dyn_arr::remove (registry.positions, 1);
-  ds::dyn_arr::remove (registry.sprites, 1);
-  ds::dyn_arr::remove (registry.types, 1);
-
-  // Descalate so metadata shows Avaliable = 4
-  ds::dyn_arr::remove (registry.positions, 1, true);
-  ds::dyn_arr::remove (registry.sprites, 1, true);
-  ds::dyn_arr::remove (registry.types, 1, true);
-  // ----------------------------------------------
-
-  unsigned count = 3;
-  while (count--)
+  while (platform::update (&platform_state))
     {
-      update_positions (registry.positions, registry.types);
-      render_sprites (registry.positions, registry.sprites);
-
-      std::cout << "\n";
+      // std::cout << "running\n";
     }
 
-  ds::dyn_arr::print_data (registry.types);
-  ds::dyn_arr::print_metadata (registry.types);
+  platform::shutdown (&platform_state);
 }
