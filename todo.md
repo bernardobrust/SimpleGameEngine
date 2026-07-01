@@ -1,3 +1,29 @@
+## Todo list for version 0.0.1 beta p2
+**GOAL:** Global map of pressed keys (a.k.a input)
+
+Of course we need to know what keys are being pressed to make a game, we'll do so via a global boolean array that tracks what keys are pressed at the moment
+
+### General
+- [x] Update docs pre-work
+- [ ] Update docs post-work
+
+### Core Engine
+Provide a global boolean array of pressed keys:
+- [ ] Keycode = index in the array
+- [ ] Provide function `engine::is_key_pressed` that checks in the array
+- [ ] Test by rendering the last 3 keys pressed by the user and quit on pressing <esc>.
+
+### Platform Layer
+- [ ] The platform layer implementation should update the global array in the update function.
+
+### Problems for future versions
+- Does this handle key holding well? How about scrolling and mouse motion?
+- Does this approach scale with a controller?
+
+***
+
+# Previous version
+
 ## Todo list for version 0.0.1 beta
 **GOAL:** Working GNU + Linux X11 platform layer (windowing only for now)
 
@@ -28,38 +54,5 @@ The general module should provide (for now):
 - [x] `platform_update`: for now we just pool events, latter we will give it a buffer to blit for example
 - [x] `platform_shutdown`: self-explanatory
 
-***
-
-# Previous version
-
-## Todo list for version 0.0.1 alpha
-**GOAL:** A working dynamic array data structure
-
-### General
-- [x] Update docs pre-work
-- [x] Modularized support for data structures
-- [x] Add gnu formating
-- [x] Update docs post-work
-
-### Core Engine
-- [x] Change `EntityRegistry` to use `engine::ds::dyn_arr`
-
-### Data Structures
-- [x] Create a `engine::ds::dyn_arr` module, should be templated (justified)
-
-Funtions:
-- [x] init given a size, **DO NOT ZERO MEMORY ON ALLOCATION**, we assume the caller will assign latter. Because of this, we only support trivial datatypes, since this is a Data Oriented project this is fine. Moreover, we can document this with `static_assert(std::is_trivially_copyable_v<T>, "T must be trivially copyable");` to check at compile time this assumption is correct. Metadata is stored by the struct.
-- [x] push with an implicit re-sacale parameter (2, can be any float > 1). **O(1) amortized**
-- [x] pop with an implicit de-scale parameter (false) that reduces the size of the vector after deleting if it falls bellow a threshold (2). **O(1) amortized**
-- [x] insert, push but can specify a specific position. **O(n)**
-- [x] remove (delete is taken as a keyword), pop but can specify a specific position. **O(n)**
-- [x] length, the amount of used slots
-- [x] size, the total memory used by the data structure, with implicit header parameter (false) that adds the shadowed metadata to the size
-
-Debug Utility:
-- [x] print_data prints all elements
-- [x] print_metadata prints used/sza
-
-### Problems for next versions
-- Of course, check that the data structure works correctly and efficienlty in the long run
-- We still have to do with ensuring access to the entity registry is controlled during debug builds
+### Problems for future versions
+- We have no delta time nor an fps counter

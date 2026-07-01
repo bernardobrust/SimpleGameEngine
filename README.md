@@ -6,7 +6,7 @@
 A repository I decided to make just for fun to keep software engineering sharp while grinding throu my bachelor's math classes (don't get me wrong, I love Calculus and Linear Algebra, but there isn't a lot of programming in there). Also to try out a few things:
 - Post-Modern C, a.k.a C but we use modules (better compile times, no header hell), namespaces (good for organization), default function values (usefull for when the parameter has a commonly used value) and templates (when justifiable, such as data structures). Also STL for prototyping stuff while we don't have our own custom data structures.
 - Building a platform layer from scratch (less bloat);
-- CPU rendering (because GPU programming is an absolute mess, so it's justifiable if it's not requiered for the current task);
+- CPU rendering, because GPU programming is an absolute mess, so it's justifiable if it's not requiered (a.k.a nice graphics);
 - Data oriented design (SIMD go brrrrr) and compression oriented programming (check sources);
 - Creating a simple puzzle game (because I've been playing a lot of those recently).
 
@@ -14,7 +14,7 @@ Please don't use this as an actuall engine, this is just a reference/POC/pet pro
 
 ## Building
 Clone the repo and enter it with:
-- A C++26 compatible compiler
+- A C++26 compatible compiler (I've been using g++ 16.1.0, it's likely not needed but it's what has been working for me)
 - GNU Make
 - If building with GNU + Linux X11, `lX11` is also requiered
 
@@ -43,5 +43,7 @@ Check [sources](sources.md).
 
 ## Progress
 Progress for each version is tracked at [todo](todo.md).
+
+By version I mean feature tracking, each version has a goal and I update based on that, so a version may have parts (such as "0.0.1 beta p2").
 
 Only the progress tab of the previous version is stored. I don't think a changelog is requiered since it's a hobby project.
